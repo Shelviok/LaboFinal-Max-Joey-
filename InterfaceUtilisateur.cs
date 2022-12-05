@@ -101,8 +101,9 @@ namespace LaboFinal_A22
                 for (int i = 0; i < ligneTemp.Length; i++)
                 {
                     // ajouter le caractère au tableau
-                    this.carte.Append(ligneTemp[i]);
+                    this.carte.Add(ligneTemp[i]);
                 }
+
 
 
             }
@@ -115,16 +116,15 @@ namespace LaboFinal_A22
 
             // placer le joueur à la position de départ, la première case libre en haut à gauche
             bool valide = false;
+            int j = 0;
             while (!valide)
             {
-                for (int i = 0; i < this.carte.Count; i++)
+                if (carte[j] == ' ')
                 {
-                    if (carte[i] == ' ')
-                    {
-                        carte[i] = 'J';
-                        valide= true;
-                    }
+                    carte[j] = 'J';
+                    valide = true;
                 }
+                    j++;
             }
 
         } //Fait à vérifier
@@ -182,6 +182,18 @@ namespace LaboFinal_A22
             int nombre = 0;
 
             // afficher les instructions
+            string afficherCarte = "";
+            for (int i = 0; i * largeur < this.carte.Count; i++)
+            {
+
+                for (int j = 0; j < this.largeur; j++)
+                {
+                    afficherCarte += this.carte[j + (i * largeur)];
+                }
+                afficherCarte += "\n";
+
+            }
+            Console.WriteLine(afficherCarte);
             Console.WriteLine(this.instructions);
             // récupérer la réponse de l'utilisateur
             ConsoleKey choix = Console.ReadKey().Key;

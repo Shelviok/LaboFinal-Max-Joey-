@@ -55,9 +55,11 @@ namespace LaboFinal_A22
             string[] statsBoule = { "Boule De Feu", "25", "4", "2"};
             Habilete boule = new Habilete(statsBoule);
             // ajoute toues les habiletés à l'attribut habiletes
-            this.habiletes.Append(coup);
-            this.habiletes.Append(attaque);
-            this.habiletes.Append(boule);
+            this.habiletes.Add(boule);
+            this.habiletes.Add(attaque);
+            this.habiletes.Add(coup);
+
+
         } //Fait à tester
 
         // genererJoueur
