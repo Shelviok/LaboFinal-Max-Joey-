@@ -185,7 +185,8 @@ namespace LaboFinal_A22
             string afficherCarte = "";
             for (int i = 0; i * largeur < this.carte.Count; i++)
             {
-
+                
+                
                 for (int j = 0; j < this.largeur; j++)
                 {
                     afficherCarte += this.carte[j + (i * largeur)];
@@ -206,12 +207,12 @@ namespace LaboFinal_A22
 
             else if (choix == ConsoleKey.A) 
             {
-                nombre = 1;
+                nombre = 2;
             }
 
             else if (choix == ConsoleKey.S)
             {
-                nombre = 2;
+                nombre = 1;
             }
 
             else if (choix == ConsoleKey.D)
@@ -283,9 +284,10 @@ namespace LaboFinal_A22
                     {
                         // afficher le symbole actuel : this.arene[i][j] , sans sauter de ligne
                         Console.Write(this.arene[i][j]);
-                        // sauter une ligne
-                        Console.WriteLine();
+
                     }
+                    // sauter une ligne
+                    Console.WriteLine();
                 }
             }
 
@@ -434,10 +436,10 @@ namespace LaboFinal_A22
             int position = 0;
             // tant que le compteur position est plus petit que la longueur de la liste
             // et que le contenu de la carte à la position du compteur est différente de J
-            while (i < carte.Count && i != position)
+            while (position < carte.Count && this.carte[position] != 'J')
             {
                 // augmenter le compteur position
-                i++;
+                position++;
             }
 
             // renvoyer la position dujoueur
@@ -457,44 +459,76 @@ namespace LaboFinal_A22
         {
             // initialiser une variable pour dire si le joueur est arrivé à la sortie
             bool arrive = false;
+
             // initialiser une variable (compteur) pour le numéro de la case où le joueur est placé
+            int compteur = 0;
 
             // initialiser une variable pour le numéro de la case de destination
+            int destination = 0;
 
             // trouver la case dans laquelle le joueur est avec la méthode demanderPosition()
+            compteur = demanderPosition();
 
             // selon la direction
             // si le joueur va vers le haut
+            if (direction == 0)
+            {
+                // la case de destination est la case du joueur - la largeur de la carte 
+                destination = compteur - largeur;
+            }
 
-            // la case de destination est la case du joueur - la largeur de la carte
+
 
             // vers le bas
+            else if (direction == 1)
+            {
+                // la case de destination est la case du joueur + la largeur de la carte
+                destination = compteur + largeur;
+            }
 
-            // la case de destination est la case du joueur + la largeur de la carte
 
             // vers la gauche
+            else if (direction == 2)
+            {
+                // la case de destination est la case du joueur - 1
+                destination = compteur - 1;
+            }
 
-            // la case de destination est la case du joueur - 1
+
 
             // vers la droite
-
-            // la case de destination est la case du joueur + 1
-
+            else if (direction == 3)
+            {
+                // la case de destination est la case du joueur + 1
+                destination = compteur + 1;
+            }
             // si la position de destination est dans la carte
             // >= 0 et < le nombre d'éléments de la carte
 
             // si le contenu de la carte à la position de destination est la sortie (un S)
+            if (this.carte[destination] == 'S')
+            {
+                // changer la valeur de la variable de retour à true
+                arrive = true;
+            }
 
-            // changer la valeur de la variable de retour à true
 
             // si le contenu de la carte à la position de destination est différente de # (un mur)
+            if (this.carte[destination] == '#')
+            {
+                destination = compteur;
+            }
 
             // remplacer le joueur (la lettre J) de sa position dans la carte par un vide: " "
+            this.carte[compteur] = ' ';
 
             // placer le joueur (le symbole J) dans la carte, à la destination
+            compteur = destination;
+            this.carte[destination] = 'J';
 
             // retourner la variable de retour, qui détermine si on a atteint la sortie ou non
             return arrive;
+
         }
     }
 }
