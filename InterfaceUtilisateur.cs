@@ -136,14 +136,37 @@ namespace LaboFinal_A22
         // retourne le choix de la classe : 0  pour guerrier, 1 pour magicien ou 2 pour roublard
         //
         // @return int le nombre correspondant à la classe choisie
+        public int afficherMenuCreation()
+        {
+            int classe = 0;
 
+            Console.WriteLine("Choisir le type de personnage :" + this.menuCreation); //"1. Guerrier\n2. Roublard\n3. Magicien"
+            int.TryParse(Console.ReadLine(), out classe);
+
+            return classe;
+        } //Fait à vérifier
 
         // demanderNom
         //
         // demande le nom du personnage à la console et retourne la réponse
         // 
         // @return string le nom choisi pour le personnage
+        public string demanderNom()
+        {
+            string nom = "";
+            Console.WriteLine("Quel est le nom de votre personnage?");
 
+            nom = Console.ReadLine();
+
+            return nom;
+        }
+
+        // afficherMenuCreation
+        //
+        // affiche le menu de création du joueur 
+        // retourne le choix de la classe : 0  pour guerrier, 1 pour magicien ou 2 pour roublard
+        //
+        // @return int le nombre correspondant à la classe choisie
 
         // afficherCarte
         //
@@ -269,6 +292,7 @@ namespace LaboFinal_A22
 
                 // sinon si on est à la 7 ème ligne
                 else if (i == 7)
+
                 {
                     // remplacer le marqueur {0} par le nom du troisième ennemi
                     ligne.Replace("{0}", ennemis[0]);
@@ -365,36 +389,6 @@ namespace LaboFinal_A22
             return choix - 1;
         } //Fait à vérifier
 
-        // demanderNom
-        //
-        // demande le nom du personnage à la console et retourne la réponse
-        // 
-        // @return string le nom choisi pour le personnage
-        public string demanderNom()
-        {
-            string nom = "";
-            Console.WriteLine("Quel est le nom de votre personnage?");
-
-            nom = Console.ReadLine();
-
-            return nom;
-        }
-        // afficherMenuCreation
-        //
-        // affiche le menu de création du joueur 
-        // retourne le choix de la classe : 0  pour guerrier, 1 pour magicien ou 2 pour roublard
-        //
-        // @return int le nombre correspondant à la classe choisie
-        public int afficherMenuCreation()
-        {
-            int classe = 0;
-
-            Console.WriteLine("Choisir le type de personnage :" + this.menuCreation); //"1. Guerrier\n2. Roublard\n3. Magicien"
-            int.TryParse(Console.ReadLine(), out classe);
-
-            return classe;
-        } //Fait à vérifier
-
         // afficherMenuIntro
         //
         // affiche l'intro et le menu du début, ensuite retourne le choix de l'utilisateur : 1 pour jouer, 2 pour quitter
@@ -478,7 +472,6 @@ namespace LaboFinal_A22
             }
 
 
-
             // vers le bas
             else if (direction == 1)
             {
@@ -495,7 +488,6 @@ namespace LaboFinal_A22
             }
 
 
-
             // vers la droite
             else if (direction == 3)
             {
@@ -504,31 +496,31 @@ namespace LaboFinal_A22
             }
             // si la position de destination est dans la carte
             // >= 0 et < le nombre d'éléments de la carte
-
-            // si le contenu de la carte à la position de destination est la sortie (un S)
-            if (this.carte[destination] == 'S')
+            if (destination >=0 && destination < carte.Count)
             {
-                // changer la valeur de la variable de retour à true
-                arrive = true;
+                // si le contenu de la carte à la position de destination est la sortie (un S)
+                if (this.carte[destination] == 'S')
+                {
+                    // changer la valeur de la variable de retour à true
+                    arrive = true;
+                }
+
+
+                // si le contenu de la carte à la position de destination est différente de # (un mur)
+                if (this.carte[destination] != '#')
+                {
+                    // remplacer le joueur (la lettre J) de sa position dans la carte par un vide: " "
+                    this.carte[compteur] = ' ';
+
+                    // placer le joueur (le symbole J) dans la carte, à la destination
+                    this.carte[destination] = 'J';
+                }
             }
-
-
-            // si le contenu de la carte à la position de destination est différente de # (un mur)
-            if (this.carte[destination] == '#')
-            {
-                destination = compteur;
-            }
-
-            // remplacer le joueur (la lettre J) de sa position dans la carte par un vide: " "
-            this.carte[compteur] = ' ';
-
-            // placer le joueur (le symbole J) dans la carte, à la destination
-            compteur = destination;
-            this.carte[destination] = 'J';
+            
 
             // retourner la variable de retour, qui détermine si on a atteint la sortie ou non
             return arrive;
 
-        }
+        } //Fait à vérifier
     }
 }
